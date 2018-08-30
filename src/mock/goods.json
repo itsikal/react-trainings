@@ -1,0 +1,17 @@
+[
+    {
+        "name": "good 1",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "price": 15.00
+    },
+    {
+        "name": "good 2",
+        "description": "Lorem ipsum dolor sit amet, adipiscing elit.",
+        "price": 30.00
+    },
+    {
+        "name": "good 3",
+        "description": "Lorem ipsum dolor sit  elit.",
+        "price": 45.00
+    }
+]
