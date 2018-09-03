@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const config = require('./template.config');
 
@@ -18,7 +19,10 @@ module.exports = {
     },
     devtool: 'source-map',
     resolve: {
-        extensions: ['*', '.js', '.jsx']
+        extensions: ['*', '.js', '.jsx'],
+        plugins: [
+            new DirectoryNamedWebpackPlugin()
+        ]
     },
     output: {
         path: __dirname + '/build',
@@ -27,6 +31,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin(config),
+        new DirectoryNamedWebpackPlugin(),
         new UglifyJsPlugin({
             sourceMap: true
         })

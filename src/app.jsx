@@ -1,23 +1,23 @@
-import React from "react";
+import React, {Fragment } from "react";
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import { rootId } from "../template.config";
 import goods from "./mock/goods.json";
-import { Page1 } from "./pages/page1";
-
-console.log(rootId)
+import Main from "./pages/Main";
 
 const App = (props) => (
-    <div className='App'>
-        <h1>Super Shop</h1>
-        <div className="container">
-            <Page1 goods={ props.goods } />
+    <Fragment>
+        <header>
+            <h1>Super Shop</h1>
+        </header>
+        <div className='App'>
+            <Main goods={ props.goods } />
         </div>
-    </div>
+    </Fragment>
 );
 
 App.propTypes = {
-    goods: PropTypes.any,
+    goods: PropTypes.arrayOf(PropTypes.object),
 }
 
 ReactDom.render(
