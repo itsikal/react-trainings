@@ -2,15 +2,14 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from "prop-types";
 import Home from "./Home";
 import Final from "./Final";
+import { connect } from "react-redux";
+import { fetchGoods } from "../ducks/goods";
 
 class Main extends Component {
 
     static propTypes = {
-        goods: PropTypes.arrayOf(PropTypes.object)
-    }
-
-    static defaultProps = {
-        goods: []
+        goods: PropTypes.arrayOf(PropTypes.object),
+        fetchGoods: PropTypes.func,
     }
 
     constructor(props) {
@@ -34,18 +33,43 @@ class Main extends Component {
     }
 
     render() {
-        const { goods } = this.props;
+        const { goods, fetchGoods } = this.props;
         const { cart } = this.state;
 
+        console.log("goods!!!", this.props);
+
         return (
-            <div className="container">
-                <Fragment>
-                    <Home goods={goods} addToCart={this.addToCart} />
-                    <Final goods={goods} cart={cart} />
-                </Fragment>
-            </div>
+            <Fragment>
+                <header>
+                    <h1>Super Shop</h1>
+                </header>
+                <div className='App'>
+                    <div className="container">
+                        <button onClick={() => fetchGoods()}>Fetch Goods</button>
+                        <Fragment>
+                            <Home goods={goods} addToCart={this.addToCart} />
+                            <Final goods={goods} cart={cart} />
+                        </Fragment>
+                    </div>
+                </div>
+            </Fragment>
         )
     }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+    return {
+        goods: state.goods,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchGoods: () => dispatch(fetchGoods()),
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Main);

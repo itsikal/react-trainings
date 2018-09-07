@@ -1,26 +1,15 @@
-import React, {Fragment } from "react";
+import React from "react";
 import ReactDom from "react-dom";
-import PropTypes from "prop-types";
+import { Provider } from 'react-redux';
 import { rootId } from "../template.config";
-import goods from "./mock/goods.json";
 import Main from "./pages/Main";
+import createStore from "./store";
 
-const App = (props) => (
-    <Fragment>
-        <header>
-            <h1>Super Shop</h1>
-        </header>
-        <div className='App'>
-            <Main goods={ props.goods } />
-        </div>
-    </Fragment>
-);
-
-App.propTypes = {
-    goods: PropTypes.arrayOf(PropTypes.object),
-}
+const store = createStore();
 
 ReactDom.render(
-    <App goods={ goods }/>,
+    <Provider store={store}>
+        <Main />
+    </Provider>,
     document.getElementById(`${rootId}`),
 )
