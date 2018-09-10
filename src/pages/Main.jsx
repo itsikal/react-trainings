@@ -4,39 +4,23 @@ import Home from "./Home";
 import Final from "./Final";
 import { connect } from "react-redux";
 import { fetchGoods } from "../ducks/goods";
+import { addToCart } from "../ducks/cart";
 
 class Main extends Component {
 
     static propTypes = {
         goods: PropTypes.arrayOf(PropTypes.object),
         fetchGoods: PropTypes.func,
+        cart: PropTypes.arrayOf(PropTypes.object),
+        addToCart: PropTypes.func,
     }
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            cart: {},
-        }
-    }
-
-    addToCart = (id) => () => {
-        this.setState(({ cart }) => {
-            cart[id] = cart[id] ? cart[id] + 1 : 1
-            return {
-                cart,
-            };
-        });
-    }
     addPaymenyInfo(info) {
         this.setState(() => ({ info }));
     }
 
     render() {
-        const { goods, fetchGoods } = this.props;
-        const { cart } = this.state;
-
-        console.log("goods!!!", this.props);
+        const { goods, cart, fetchGoods, addToCart } = this.props;
 
         return (
             <Fragment>
@@ -47,7 +31,7 @@ class Main extends Component {
                     <div className="container">
                         <button onClick={() => fetchGoods()}>Fetch Goods</button>
                         <Fragment>
-                            <Home goods={goods} addToCart={this.addToCart} />
+                            <Home goods={goods} addToCart={addToCart} />
                             <Final goods={goods} cart={cart} />
                         </Fragment>
                     </div>
@@ -58,14 +42,17 @@ class Main extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log("map", state);
     return {
         goods: state.goods,
+        cart: state.cart,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         fetchGoods: () => dispatch(fetchGoods()),
+        addToCart: (id) => dispatch(addToCart(id)),
     };
 }
 

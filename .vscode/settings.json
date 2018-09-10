@@ -1,4 +1,5 @@
 {
-    "javascript.referencesCodeLens.enabled": true,
     "editor.formatOnSave": true,
+    "javascript.preferences.importModuleSpecifier": "relative",
+    "javascript.referencesCodeLens.enabled": true,
 }

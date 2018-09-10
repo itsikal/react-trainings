@@ -7,14 +7,14 @@ const Home = ({ goods, cart }) => (
     <div>
         <h2>Cart</h2>
         <div className="page-container">
-            <Cart goods={goods} cart={cart} />
+            { /*<Cart goods={goods} cart={cart} />*/}
         </div>
     </div>
 );
 
 Home.propTypes = {
     ...Goods,
-    cart: PropTypes.object
+    cart: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default Home;

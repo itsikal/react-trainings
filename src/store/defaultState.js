@@ -1,5 +1,6 @@
 const defaultState = {
-    goods: []
+    goods: [],
+    cart: [],
 }
 
 export default defaultState;
