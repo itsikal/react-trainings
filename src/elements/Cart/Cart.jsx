@@ -12,18 +12,18 @@ const Cart = ({ goods, cart }) => {
     return <div className="cart">
         <Fragment>
             {
-                Object.keys(cart).map((id) => {
+                cart.map(({ id, count }) => {
                     const good = {
                         ...goods.filter((good) => good.id == id)[0],
-                        count: cart[id],
+                        count,
                     }
                     return <Item {...(good)} key={good.id}>
                         <div className="count">Count: {good.count}</div>
                     </Item>
                 })
             }
-            {Object.keys(cart).length > 0 &&
-                <div className="total">Total: {getTotal()}</div>
+            {/*Object.keys(cart).length > 0 &&
+                <div className="total">Total: {getTotal()}</div>*/
             }
         </Fragment>
     </div>

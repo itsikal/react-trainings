@@ -4,7 +4,7 @@ export const CART_ADD = 'CART_ADD';
 export function addToCart(id) {
     return {
         type: CART_ADD,
-        cart: id,
+        id,
     };
 }
 
@@ -18,6 +18,7 @@ function addItemToCartById(cart, id) {
                 count: item.count + 1
             };
         }
+        return item;
     });
     if (!exist) {
         newCart.push({
@@ -29,16 +30,14 @@ function addItemToCartById(cart, id) {
 }
 
 // Reducer
-export default function reducer(state = {}, action = {}) {
+export default function reducer(state = [], action = {}) {
     if (action.error) {
         return state;
     }
 
     switch (action.type) {
         case CART_ADD:
-            const cart = addItemToCartById(state.cart, action.id);
-            console.log("cart reducer", cart);
-            return cart;
+            return addItemToCartById(state, action.id);
         default: return state;
     }
 }

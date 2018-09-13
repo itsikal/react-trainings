@@ -42,7 +42,6 @@ class Main extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("map", state);
     return {
         goods: state.goods,
         cart: state.cart,

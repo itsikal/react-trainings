@@ -10,7 +10,7 @@ const Home = ({ goods, addToCart }) => (
         <div className="page-container">{
             goods.map((good) => (
                 <Item {...(good)} key={good.id}>
-                    <Button onClick={addToCart(good.id)}>Buy</Button>
+                    <Button onClick={() => addToCart(good.id)}>Buy</Button>
                 </Item>
             ))
         }</div>

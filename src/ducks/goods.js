@@ -11,7 +11,7 @@ export const fetchGoods = () => {
 }
 
 // Reducer
-export default function reducer(state = {}, action = {}) {
+export default function reducer(state = [], action = {}) {
     if (action.error) {
         return state;
     }
