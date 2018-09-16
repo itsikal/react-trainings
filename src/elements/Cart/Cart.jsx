@@ -5,12 +5,9 @@ import Item from "../Item";
 import "./Cart.scss";
 
 const Cart = ({ goods, cart }) => {
-    const getTotal = () => {
-        return goods.reduce((total, good) => (good.id in cart) ? total + (cart[good.id] * good.price) : total, 0);
-    }
-
     return <div className="cart">
         <Fragment>
+            <h2>Cart</h2>
             {
                 cart.map(({ id, count }) => {
                     const good = {
@@ -22,16 +19,16 @@ const Cart = ({ goods, cart }) => {
                     </Item>
                 })
             }
-            {/*Object.keys(cart).length > 0 &&
-                <div className="total">Total: {getTotal()}</div>*/
-            }
         </Fragment>
     </div>
 }
 
 Cart.propTypes = {
     ...Goods,
-    cart: PropTypes.arrayOf(PropTypes.object),
+    cart: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        count: PropTypes.number,
+    })),
 }
 
 export default Cart;

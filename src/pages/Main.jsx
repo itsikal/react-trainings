@@ -1,61 +1,56 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
+import { Switch, Route, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { compose, setDisplayName } from "recompose";
 import PropTypes from "prop-types";
+import Header from "../components/Header";
 import Home from "./Home";
 import Final from "./Final";
-import { connect } from "react-redux";
 import { fetchGoods } from "../ducks/goods";
 import { addToCart } from "../ducks/cart";
 
-class Main extends Component {
+const Main = ({ goods, cart, fetchGoods, addToCart }) => (
+    <Fragment>
+        <Header />
+        <div className='App'>
+            <div className="container">
+                <button onClick={() => fetchGoods()}>Fetch Goods</button>
+                <Switch>
+                    <Route exact
+                        path='/'
+                        render={(props) => <Home {...props} goods={goods} addToCart={addToCart} />}
+                    />
+                    <Route
+                        path='/cart'
+                        render={(props) => <Final {...props} goods={goods} cart={cart} />}
+                    />
+                </Switch>
+            </div>
+        </div>
+    </Fragment>
+);
 
-    static propTypes = {
-        goods: PropTypes.arrayOf(PropTypes.object),
-        fetchGoods: PropTypes.func,
-        cart: PropTypes.arrayOf(PropTypes.object),
-        addToCart: PropTypes.func,
-    }
+Main.propTypes = {
+    goods: PropTypes.arrayOf(PropTypes.object),
+    fetchGoods: PropTypes.func,
+    cart: PropTypes.arrayOf(PropTypes.object),
+    addToCart: PropTypes.func,
+};
 
-    addPaymenyInfo(info) {
-        this.setState(() => ({ info }));
-    }
+const mapStateToProps = (state) => ({
+    goods: state.goods,
+    cart: state.cart,
+});
 
-    render() {
-        const { goods, cart, fetchGoods, addToCart } = this.props;
+const mapDispatchToProps = (dispatch) => ({
+    fetchGoods: () => dispatch(fetchGoods()),
+    addToCart: (id) => dispatch(addToCart(id)),
+});
 
-        return (
-            <Fragment>
-                <header>
-                    <h1>Super Shop</h1>
-                </header>
-                <div className='App'>
-                    <div className="container">
-                        <button onClick={() => fetchGoods()}>Fetch Goods</button>
-                        <Fragment>
-                            <Home goods={goods} addToCart={addToCart} />
-                            <Final goods={goods} cart={cart} />
-                        </Fragment>
-                    </div>
-                </div>
-            </Fragment>
-        )
-    }
-}
+const enhance = compose(
+    setDisplayName("Main"),
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps)
+)
 
-const mapStateToProps = (state) => {
-    return {
-        goods: state.goods,
-        cart: state.cart,
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        fetchGoods: () => dispatch(fetchGoods()),
-        addToCart: (id) => dispatch(addToCart(id)),
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Main);
+export default enhance(Main);

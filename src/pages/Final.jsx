@@ -5,7 +5,7 @@ import Cart from "../elements/Cart";
 
 const Home = ({ goods, cart }) => (
     <div>
-        <h2>Cart</h2>
+        <h2>You Order</h2>
         <div className="page-container">
             <Cart goods={goods} cart={cart} />
         </div>

@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { GoodItemType } from "../../types";
+import { GoodItemType, ChildrenType } from "../../types";
 import "./Item.scss";
 
 const Item = ({ id, name, description, price, children }) => (
@@ -14,7 +13,7 @@ const Item = ({ id, name, description, price, children }) => (
 
 Item.propTypes = {
     ...GoodItemType,
-    children: PropTypes.func,
+    ...ChildrenType,
 }
 
 export default Item;
